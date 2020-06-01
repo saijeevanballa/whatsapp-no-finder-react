@@ -20,7 +20,7 @@ export default class Finder extends Component {
   componentDidMount() {
     console.log("hello");
     let loadData = find("numbers");
-    if (loadData.length) {
+    if (loadData) {
       this.setState({ allNums: loadData });
     } else {
       create("numbers", this.state.allNums);
@@ -49,7 +49,9 @@ export default class Finder extends Component {
       alert("Entred phone number must be 10 digits " + this.state.number);
     } else {
       alert("Entred Number: " + this.state.number);
-      this.handleUpdateAndStore();
+      if (!this.state.allNums.includes(this.state.number)) {
+        this.handleUpdateAndStore();
+      }
       window.open(
         `https://api.whatsapp.com/send?phone=91${this.state.number}`,
         "_blank"
@@ -63,10 +65,11 @@ export default class Finder extends Component {
     event.preventDefault();
   }
 
-  removeNumber(number){
-    let index = this.state.allNums.indexOf(number)
-    create("numbers", this.state.allNums.splice(index, 1));
-    this.setState({allNums: this.state.allNums})
+  removeNumber(number) {
+    let index = this.state.allNums.indexOf(number);
+    this.state.allNums.splice(index, 1);
+    create("numbers", this.state.allNums);
+    this.setState({ allNums: this.state.allNums });
   }
 
   render() {
@@ -114,7 +117,10 @@ export default class Finder extends Component {
         </div>
         <div className="tableMain">
           {this.state.allNums.length ? (
-            <Table table={this.state.allNums} DeleteNum={(val)=>this.removeNumber(val)} />
+            <Table
+              table={this.state.allNums}
+              DeleteNum={val => this.removeNumber(val)}
+            />
           ) : (
             ""
           )}
