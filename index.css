@@ -6,8 +6,9 @@
   position: absolute;
   top: 10%;
   border-radius: 10px;
-  box-shadow: 1px 3px #888888;  
+  box-shadow: 1px 3px #888888;
   padding: 10px;
+  width: 75%
 }
 
 .toast{
@@ -20,6 +21,6 @@
   display: relative;
 }
 
-.tableMain{
+/* .tableMain{
   margin-top: 75%
-}
+} */
