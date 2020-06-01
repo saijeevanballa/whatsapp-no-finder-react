@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { find, create } from "../store/store";
+import Table from "./Table";
 import "../index.css";
 const numbers = /^[0-9]+$/;
 
@@ -9,16 +10,21 @@ export default class Finder extends Component {
     this.state = {
       number: "",
       errorMsg: "",
-      allNums:[]
-
+      allNums: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
   }
 
-  componentDidMount(){
-    console.log("hello")
+  componentDidMount() {
+    console.log("hello");
+    let loadData = find("numbers");
+    if (loadData.length) {
+      this.setState({ allNums: loadData });
+    } else {
+      create("numbers", this.state.allNums);
+    }
   }
 
   handleChange(event) {
@@ -30,6 +36,12 @@ export default class Finder extends Component {
     this.setState({ number: event.target.value });
   }
 
+  handleUpdateAndStore() {
+    this.state.allNums.push(this.state.number);
+    this.setState({ allNums: this.state.allNums });
+    create("numbers", this.state.allNums);
+  }
+
   handleSubmit(event) {
     if (isNaN(this.state.number) || this.state.number == "") {
       alert("Please entred valid number " + this.state.number);
@@ -37,6 +49,7 @@ export default class Finder extends Component {
       alert("Entred phone number must be 10 digits " + this.state.number);
     } else {
       alert("Entred Number: " + this.state.number);
+      this.handleUpdateAndStore();
       window.open(
         `https://api.whatsapp.com/send?phone=91${this.state.number}`,
         "_blank"
@@ -52,7 +65,7 @@ export default class Finder extends Component {
 
   render() {
     return (
-      <div>
+      <div className="d-flex flex-column">
         <div className="main">
           <div className="d-flex row flex-wrap justify-content-center align-self-center">
             <div className="card">
@@ -92,6 +105,13 @@ export default class Finder extends Component {
               </div>
             </div>
           </div>
+        </div>
+        <div className="tableMain">
+          {this.state.allNums.length ? (
+            <Table table={this.state.allNums} />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );

@@ -3,8 +3,11 @@
 }
 
 .card {
-  padding: 15px;
-  margin-top: 10%;
+  position: absolute;
+  top: 10%;
+  border-radius: 10px;
+  box-shadow: 1px 3px #888888;  
+  padding: 10px;
 }
 
 .toast{
@@ -15,4 +18,8 @@
   color:#db2269;
   font-size: 0.625em;
   display: relative;
+}
+
+.tableMain{
+  margin-top: 35%
 }
