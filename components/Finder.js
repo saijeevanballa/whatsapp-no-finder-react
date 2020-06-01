@@ -8,11 +8,17 @@ export default class Finder extends Component {
     super();
     this.state = {
       number: "",
-      errorMsg: ""
+      errorMsg: "",
+      allNums:[]
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
+  }
+
+  componentDidMount(){
+    console.log("hello")
   }
 
   handleChange(event) {
@@ -40,7 +46,7 @@ export default class Finder extends Component {
   }
 
   handleReset(event) {
-    this.setState({ number: "" });
+    this.setState({ number: "", errorMsg: "" });
     event.preventDefault();
   }
 
