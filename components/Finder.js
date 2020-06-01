@@ -74,8 +74,8 @@ export default class Finder extends Component {
 
   render() {
     return (
-      <div>
-        <div className="main">
+      <div className="mainDiv">
+        <div className="inputDiv">
           <div className="d-flex row flex-wrap justify-content-center align-self-center">
             <div className="card">
               <div className="card-body">
@@ -115,7 +115,7 @@ export default class Finder extends Component {
             </div>
           </div>
         </div>
-        <div className="tableMain fixed-bottom">
+        <div className="tableDiv">
           {this.state.allNums.length ? (
             <Table
               table={this.state.allNums}
