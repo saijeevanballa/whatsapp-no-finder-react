@@ -63,6 +63,12 @@ export default class Finder extends Component {
     event.preventDefault();
   }
 
+  removeNumber(number){
+    let index = this.state.allNums.indexOf(number)
+    create("numbers", this.state.allNums.splice(index, 1));
+    this.setState({allNums: this.state.allNums})
+  }
+
   render() {
     return (
       <div className="d-flex flex-column">
@@ -108,7 +114,7 @@ export default class Finder extends Component {
         </div>
         <div className="tableMain">
           {this.state.allNums.length ? (
-            <Table table={this.state.allNums} />
+            <Table table={this.state.allNums} DeleteNum={(val)=>this.removeNumber(val)} />
           ) : (
             ""
           )}

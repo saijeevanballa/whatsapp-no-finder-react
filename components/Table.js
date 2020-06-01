@@ -51,14 +51,16 @@ export default class Table extends Component {
         "_blank"
       )
   }
-  render() {
 
+  render() {
     let tabel = this.props.table.map((val, i) => (
       <tr key={i}>
         <th scope="row">{i + 1}</th>
         <td>{val}</td>
-        <td onClick={()=>his.handleUrl(val)}><a>{eye}</a></td>
-        <td>{del}</td>
+        <td onClick={()=>this.handleUrl(val)}><a>{eye}</a></td>
+        <td onClick={() => {
+        this.props.DeleteNum(val);
+    }}>{del}</td>
       </tr>
     ));
 
