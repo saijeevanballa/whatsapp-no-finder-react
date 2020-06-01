@@ -79,12 +79,12 @@ export default class Finder extends Component {
           <div className="d-flex row flex-wrap justify-content-center align-self-center">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Enter Phone Number</h4>
+                <h4 className="card-title text-center">Enter Phone Number</h4>
                 <br />
                 <form>
                   <div>
                     <input
-                      className="w-100"
+                      className="w-100 text-center"
                       type="text"
                       name="Tel"
                       placeholder="Enter 10 digits phone number"
