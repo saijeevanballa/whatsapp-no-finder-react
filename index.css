@@ -56,19 +56,19 @@ margin: 2%
 /* .btn-dislike{
   background: red;
   border: 0px;
-}
+} */
 .btn-dislike:hover{
   background: rgb(235, 25, 25);
   border: 0px;
 }
 
-.btn-view{
+/* .btn-view{
   background: rgb(17, 218, 17);
   border: 0px;
-}
+} */
 
 .btn-view:hover{
-  background: green;
+  background: rgb(76, 235, 76);
   border: 0px;
-} */
+}
 
