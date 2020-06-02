@@ -69,7 +69,6 @@ export default class Table extends Component {
   }
 
   handleUrl(event) {
-    console.log(event);
     window.open(`https://api.whatsapp.com/send?phone=91${event}`, "_blank");
   }
 

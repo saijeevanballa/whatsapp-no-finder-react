@@ -66,37 +66,30 @@ export default class Public extends Component {
     axios
       .get(`${BASE_URL}`)
       .then(response => {
-        console.log(response, "from api");
         this.setState({ table: response.data || [] });
       });
   }
 
   handlerLike(id) {
-    console.log("like", id);
     axios
       .get(`${BASE_URL}/${id}/like`)
       .then(response => {
-        console.log(response, "from api");
       });
     this.setState({ table: this.state.table.map((obj)=> obj._id==id ? {...obj, likes: obj.likes + 1 }: obj) });
   }
 
   handlerDisLike(id) {
-    console.log("dislike", id);
     axios
       .get(`${BASE_URL}/${id}/dislike`)
       .then(response => {
-        console.log(response, "from api");
       });
     this.setState({ table: this.state.table.map((obj)=> obj._id==id ? {...obj, disLikes: obj.disLikes + 1 }: obj) });
   }
 
   handlerView(id, number) {
-    console.log("view", id);
     axios
       .get(`${BASE_URL}/${id}/view`)
       .then(response => {
-        console.log(response, "from api");
       });
     this.setState({ table: this.state.table.map((obj)=> obj._id==id ? {...obj, views: obj.views + 1 }: obj) });
     window.open(
@@ -106,7 +99,6 @@ export default class Public extends Component {
   }
 
   render() {
-    console.log(this.state.table);
     let tabel = this.state.table.map((val, i) => (
       <div key={val._id} className="d-flex justify-content-around publicMain flex-wrap">
         <div class="card">
@@ -151,7 +143,6 @@ export default class Public extends Component {
         </div>
       </div>
     ));
-console.log(tabel,"---")
     return (
       <div>
         <Navbar />

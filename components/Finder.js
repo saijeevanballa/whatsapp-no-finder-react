@@ -106,7 +106,6 @@ export default class Finder extends Component {
 
   handleFormSubmit() {
     let form = this.state.form;
-    console.log("sumitted", this.state.form);
     if (form.gender != "" && form.name != "") {
       axios
         .post(`${BASE_URL}`, {
@@ -114,7 +113,6 @@ export default class Finder extends Component {
           number: this.state.share.number
         })
         .then(function(response) {
-          console.log(response);
         });
       this.setState({
         share: { share: false, number: null },
@@ -149,7 +147,6 @@ export default class Finder extends Component {
 
   handleFormNameChange(event) {
     let form = this.state.form;
-    console.log(event.target.value);
     if (!/^[A-Za-z\s]+$/.test(event.target.value)) {
       form = { ...form, nameError: "Please entred valid name number" };
     } else {
@@ -159,7 +156,6 @@ export default class Finder extends Component {
   }
 
   render() {
-    console.log(this.state.form);
     let card =
       !this.state.share.share && !this.state.share.number ? (
         <div className="d-flex row flex-wrap justify-content-center align-self-center">
