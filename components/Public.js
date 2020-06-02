@@ -151,11 +151,11 @@ export default class Public extends Component {
         </div>
       </div>
     ));
-
+console.log(tabel,"---")
     return (
       <div>
         <Navbar />
-        {tabel || "No Data Found"}
+        {tabel.length? tabel : <p className="d-flex justify-content-center mt-5 text-danger">No Data Found</p>}
       </div>
     );
   }

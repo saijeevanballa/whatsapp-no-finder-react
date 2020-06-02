@@ -27,7 +27,7 @@ class App extends Component {
 const routing = (
   <Router>
     <div>
-      <Route exact path="/" component={App} />
+      <Route exact path="/" component={Public} />
       <Route path="/public" component={Public} />
     </div>
   </Router>
