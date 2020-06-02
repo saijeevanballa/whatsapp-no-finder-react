@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from "axios";
+import { BASE_URL } from "../api-middleware";
 import Navbar from "./Navbar";
 // import "../index.css";
 
@@ -54,53 +56,84 @@ const view = (
 export default class Public extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      table: []
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get(`${BASE_URL}`)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json, "from api");
+        this.setState({ table: json || [] });
+      });
+  }
+
+  handlerLike() {
+    console.log("like");
+  }
+
+  handlerDisLike() {
+    console.log("dislike");
+  }
+
+  handlerView() {
+    console.log("view");
   }
 
   render() {
-    return (
-      <div>
-        <Navbar />
-        <div className="d-flex justify-content-around publicMain flex-wrap">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">
+    console.log(this.state.table);
+    let tabel = this.state.table.map((val, i) => (
+      <div className="d-flex justify-content-around publicMain flex-wrap">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">
               <div className="d-flex flex-row justify-content-between flex-wrap">
-              <div>7989238348</div>
-              <div>M</div>
+                <div>{val.number}</div>
+                <div>{val.gender || "N/A"}</div>
               </div>
-              </h4>
-              <p class="card-text">
-                Sai jeevan
-              </p>
-              <div className="d-flex flex-row justify-content-start flex-wrap">
-                <div>
-                  <a href="#!" class="btn btn-primary m-1">
-                    <div className="d-flex flex-row justify-content-between">
-                      <div className="mr-1">{like}</div>
-                      <div>2.3k</div>{" "}
-                    </div>
-                  </a>
-                </div>
-                <div>
-                  <a href="#!" class="btn btn-primary m-1">
-                    <div className="d-flex flex-row justify-content-between">
-                      <div className="mr-1">{dislike}</div>
-                      <div>1.1k</div>{" "}
-                    </div>
-                  </a>
-                </div>
-                <div>
-                  <a href="#!" class="btn btn-primary m-1">
-                    <div className="d-flex flex-row justify-content-between">
-                      <div className="mr-1">{view}</div>
-                      <div>2.1M</div>{" "}
-                    </div>
-                  </a>
-                </div>
+            </h4>
+            <p class="card-text">{val.name || "anonymous"}</p>
+            <div className="d-flex flex-row justify-content-start flex-wrap">
+              <div>
+                <a
+                  onClick={() => this.handlerLike()}
+                  class="btn btn-primary m-1"
+                >
+                  <div className="d-flex flex-row justify-content-between">
+                    <div className="mr-1">{like}</div>
+                    <div>2.3k</div>{" "}
+                  </div>
+                </a>
+              </div>
+              <div>
+                <a onClick={() => this.handlerDisLike()} class="btn btn-primary m-1">
+                  <div className="d-flex flex-row justify-content-between">
+                    <div className="mr-1">{dislike}</div>
+                    <div>1.1k</div>{" "}
+                  </div>
+                </a>
+              </div>
+              <div>
+                <a onClick={() => this.handlerView()}  class="btn btn-primary m-1">
+                  <div className="d-flex flex-row justify-content-between">
+                    <div className="mr-1">{view}</div>
+                    <div>2.1M</div>{" "}
+                  </div>
+                </a>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    ));
+
+    return (
+      <div>
+        <Navbar />
+        {tabel}
       </div>
     );
   }

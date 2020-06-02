@@ -10,11 +10,25 @@ export default class Finder extends Component {
     this.state = {
       number: "",
       errorMsg: "",
-      allNums: []
+      allNums: [],
+      share: {
+        share: false,
+        number: null
+      },
+      form: {
+        name: "",
+        nameError: "",
+        gender: "",
+        genderError: ""
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleFormGenderChange = this.handleFormGenderChange.bind(this);
+    this.handleFormNameChange = this.handleFormNameChange.bind(this);
   }
 
   componentDidMount() {
@@ -73,52 +87,142 @@ export default class Finder extends Component {
   }
 
   shareNumber(number) {
-    console.log(number, "shared")
+    this.setState({ share: { share: true, number } });
+  }
+
+  handleCancel() {
+    this.setState({ share: { share: false, number: null } });
+  }
+
+  handleFormSubmit() {
+    console.log("sumitted");
+  }
+
+  handleFormGenderChange(event) {
+    this.setState({ form: { gender: event.target.value } });
+  }
+
+  handleFormNameChange() {
+    if (!/^[A-Za-z\s]+$/.test(event.target.value)) {
+      this.setState({ form: { nameError: "Please entred valid name number" } });
+    } else {
+      this.setState({ errorMsg: "" });
+    }
+    this.setState({ form: { name: event.target.value } });
   }
 
   render() {
-    return (
-      <div className="mainDiv">
-        <div className="inputDiv">
-          <div className="d-flex row flex-wrap justify-content-center align-self-center">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title text-center">Enter Phone Number</h4>
+    console.log(this.state.share);
+    let card =
+      !this.state.share.share && !this.state.share.number ? (
+        <div className="d-flex row flex-wrap justify-content-center align-self-center">
+          <div className="card">
+            <div className="card-body">
+              <h4 className="card-title text-center">Enter Phone Number</h4>
+              <br />
+              <form>
+                <div>
+                  <input
+                    className="w-100 text-center"
+                    type="text"
+                    name="Tel"
+                    placeholder="Enter 10 digits phone number"
+                    value={this.state.number}
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <span className="error">{this.state.errorMsg}</span>
                 <br />
-                <form>
-                  <div>
-                    <input
-                      className="w-100 text-center"
-                      type="text"
-                      name="Tel"
-                      placeholder="Enter 10 digits phone number"
-                      value={this.state.number}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                  <span className="error">{this.state.errorMsg}</span>
-                  <br />
-                  <div className="d-flexnjustify-content-center">
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-block"
-                      onClick={this.handleSubmit}
-                    >
-                      submit
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-block"
-                      onClick={this.handleReset}
-                    >
-                      Reset
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div className="d-flexnjustify-content-center">
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-block"
+                    onClick={this.handleSubmit}
+                  >
+                    submit
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-block"
+                    onClick={this.handleReset}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
+      ) : (
+        <div className="d-flex row flex-wrap justify-content-center align-self-center">
+          <div className="card">
+            <div className="card-body">
+              <h3 className="card-title text-center">
+                share number to Public{" "}
+              </h3>
+              <br />
+              <form>
+                <div>
+                  <label>Number:</label>
+                  <input
+                    className="w-100 text-center"
+                    type="text"
+                    name="Tel"
+                    value={this.state.share.number}
+                    disabled
+                  />
+                  <br />
+                </div><br />
+                <div>
+                  <label>Name:</label>
+                  <input
+                    className="w-100 text-center"
+                    type="text"
+                    placeholder="Enter User Name"
+                    value={this.state.form.name}
+                    onChange={this.handleFormNameChange}
+                  />
+                  <span className="error">{this.state.form.nameError}</span>
+                </div> <br />
+                <div>
+                  <label>Gender:</label>
+                  <select
+                    className="form-control text-center"
+                    value={this.state.form.gender}
+                    onChange={this.handleFormGenderChange}
+                  >
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                  </select>
+                  <span className="error">{this.state.form.genderError}</span>
+                  <br />
+                </div>
+                <br />
+                <div className="d-flexnjustify-content-center">
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-block"
+                    onClick={this.handleFormSubmit}
+                  >
+                    submit
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-block"
+                    onClick={this.handleCancel}
+                  >
+                    cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      );
+
+    return (
+      <div className="mainDiv">
+        <div className="inputDiv">{card}</div>
         <div className="tableDiv">
           {this.state.allNums.length ? (
             <Table
