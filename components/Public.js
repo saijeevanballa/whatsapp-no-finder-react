@@ -3,7 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "../api-middleware";
 import { formatLikes } from "../utils/utils";
 import Navbar from "./Navbar";
-// import "../index.css";
+import "../index.css";
 
 const like = (
   <svg
@@ -131,7 +131,7 @@ export default class Public extends Component {
                 </a>
               </div>
               <div>
-                <a onClick={() => this.handlerDisLike(val._id)} class="btn btn-primary m-1">
+                <a onClick={() => this.handlerDisLike(val._id)} class="btn btn-primary btn-dislike m-1">
                   <div className="d-flex flex-row justify-content-between">
                     <div className="mr-1">{dislike}</div>
                     <div>{formatLikes(val.disLikes)}</div>
@@ -139,7 +139,7 @@ export default class Public extends Component {
                 </a>
               </div>
               <div>
-                <a onClick={() => this.handlerView(val._id, val.number)}  class="btn btn-primary m-1">
+                <a onClick={() => this.handlerView(val._id, val.number)}  class="btn btn-primary btn-view m-1">
                   <div className="d-flex flex-row justify-content-between">
                     <div className="mr-1">{view}</div>
                     <div>{formatLikes(val.views)}</div>
@@ -155,7 +155,7 @@ export default class Public extends Component {
     return (
       <div>
         <Navbar />
-        {tabel}
+        {tabel || "No Data Found"}
       </div>
     );
   }

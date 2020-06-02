@@ -1,6 +1,17 @@
 /* .main{
   height: 100%;
 } */
+/* .root{
+  background: #4f8a8b;
+} */
+
+body{
+  background: #aacfcf
+}
+
+.navbar{
+  background: #679b9b;
+}
 
 .mainDiv{
    display: flex;
@@ -41,5 +52,25 @@ margin: 2%
 } */
 
 .publicMain{
-  margin: 2%
+  margin: 2%;
 }
+
+.btn-dislike{
+  background: red;
+  border: 0px;
+}
+.btn-dislike:hover{
+  background: rgb(235, 25, 25);
+  border: 0px;
+}
+
+.btn-view{
+  background: rgb(17, 218, 17);
+  border: 0px;
+}
+
+.btn-view:hover{
+  background: green;
+  border: 0px;
+}
+
