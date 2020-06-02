@@ -91,7 +91,7 @@ export default class Public extends Component {
     this.setState({ table: this.state.table.map((obj)=> obj._id==id ? {...obj, disLikes: obj.disLikes + 1 }: obj) });
   }
 
-  handlerView(id) {
+  handlerView(id, number) {
     console.log("view", id);
     axios
       .get(`${BASE_URL}/${id}/view`)
@@ -99,6 +99,10 @@ export default class Public extends Component {
         console.log(response, "from api");
       });
     this.setState({ table: this.state.table.map((obj)=> obj._id==id ? {...obj, views: obj.views + 1 }: obj) });
+    window.open(
+        `https://api.whatsapp.com/send?phone=91${number}`,
+        "_blank"
+      );
   }
 
   render() {
@@ -135,7 +139,7 @@ export default class Public extends Component {
                 </a>
               </div>
               <div>
-                <a onClick={() => this.handlerView(val._id)}  class="btn btn-primary m-1">
+                <a onClick={() => this.handlerView(val._id, val.number)}  class="btn btn-primary m-1">
                   <div className="d-flex flex-row justify-content-between">
                     <div className="mr-1">{view}</div>
                     <div>{formatLikes(val.views)}</div>
