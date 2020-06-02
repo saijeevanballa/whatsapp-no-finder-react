@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api-middleware";
+import { formatLikes } from "../utils/utils";
 import Navbar from "./Navbar";
 // import "../index.css";
 
@@ -71,15 +72,33 @@ export default class Public extends Component {
   }
 
   handlerLike(id) {
-    console.log("like");
+    console.log("like", id);
+    axios
+      .get(`${BASE_URL}/${id}/like`)
+      .then(response => {
+        console.log(response, "from api");
+      });
+    this.setState({ table: this.state.table.map((obj)=> obj._id==id ? {...obj, likes: obj.likes + 1 }: obj) });
   }
 
   handlerDisLike(id) {
-    console.log("dislike");
+    console.log("dislike", id);
+    axios
+      .get(`${BASE_URL}/${id}/dislike`)
+      .then(response => {
+        console.log(response, "from api");
+      });
+    this.setState({ table: this.state.table.map((obj)=> obj._id==id ? {...obj, disLikes: obj.disLikes + 1 }: obj) });
   }
 
   handlerView(id) {
-    console.log("view");
+    console.log("view", id);
+    axios
+      .get(`${BASE_URL}/${id}/view`)
+      .then(response => {
+        console.log(response, "from api");
+      });
+    this.setState({ table: this.state.table.map((obj)=> obj._id==id ? {...obj, views: obj.views + 1 }: obj) });
   }
 
   render() {
@@ -98,28 +117,28 @@ export default class Public extends Component {
             <div className="d-flex flex-row justify-content-start flex-wrap">
               <div>
                 <a
-                  onClick={() => this.handlerLike()}
+                  onClick={() => this.handlerLike(val._id)}
                   class="btn btn-primary m-1"
                 >
                   <div className="d-flex flex-row justify-content-between">
                     <div className="mr-1">{like}</div>
-                    <div>2.3k</div>
+                    <div>{formatLikes(val.likes)}</div>
                   </div>
                 </a>
               </div>
               <div>
-                <a onClick={() => this.handlerDisLike()} class="btn btn-primary m-1">
+                <a onClick={() => this.handlerDisLike(val._id)} class="btn btn-primary m-1">
                   <div className="d-flex flex-row justify-content-between">
                     <div className="mr-1">{dislike}</div>
-                    <div>1.1k</div>{" "}
+                    <div>{formatLikes(val.disLikes)}</div>
                   </div>
                 </a>
               </div>
               <div>
-                <a onClick={() => this.handlerView()}  class="btn btn-primary m-1">
+                <a onClick={() => this.handlerView(val._id)}  class="btn btn-primary m-1">
                   <div className="d-flex flex-row justify-content-between">
                     <div className="mr-1">{view}</div>
-                    <div>2.1M</div>{" "}
+                    <div>{formatLikes(val.views)}</div>
                   </div>
                 </a>
               </div>
