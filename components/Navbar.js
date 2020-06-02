@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -7,6 +8,11 @@ const Navbar = () => {
         <a className="navbar-brand" href="#!">
           Find Whatsapp number
         </a>
+        <div>
+          <a className="navbar-brand" href="/public">
+            Public
+          </a>
+        </div>
       </nav>
     </div>
   );

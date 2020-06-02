@@ -21,6 +21,30 @@ const eye = (
   </svg>
 );
 
+const share = (
+  <svg
+    class="bi bi-box-arrow-in-right"
+    width="1em"
+    height="1em"
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M8.146 11.354a.5.5 0 0 1 0-.708L10.793 8 8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"
+    />
+    <path
+      fill-rule="evenodd"
+      d="M1 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 1 8z"
+    />
+    <path
+      fill-rule="evenodd"
+      d="M13.5 14.5A1.5 1.5 0 0 0 15 13V3a1.5 1.5 0 0 0-1.5-1.5h-8A1.5 1.5 0 0 0 4 3v1.5a.5.5 0 0 0 1 0V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-8A.5.5 0 0 1 5 13v-1.5a.5.5 0 0 0-1 0V13a1.5 1.5 0 0 0 1.5 1.5h8z"
+    />
+  </svg>
+);
+
 const del = (
   <svg
     className="bi bi-trash"
@@ -45,11 +69,8 @@ export default class Table extends Component {
   }
 
   handleUrl(event) {
-    console.log(event)
-    window.open(
-        `https://api.whatsapp.com/send?phone=91${event}`,
-        "_blank"
-      )
+    console.log(event);
+    window.open(`https://api.whatsapp.com/send?phone=91${event}`, "_blank");
   }
 
   render() {
@@ -57,10 +78,19 @@ export default class Table extends Component {
       <tr key={i}>
         <th scope="row">{i + 1}</th>
         <td>{val}</td>
-        <td onClick={()=>this.handleUrl(val)}><a>{eye}</a></td>
+        <td onClick={() => this.handleUrl(val)}>
+          <a>{eye}</a>
+        </td>
         <td onClick={() => {
-        this.props.DeleteNum(val);
-    }}>{del}</td>
+            this.props.sharePublic(val);
+          }}>{share}</td>
+        <td
+          onClick={() => {
+            this.props.DeleteNum(val);
+          }}
+        >
+          {del}
+        </td>
       </tr>
     ));
 
@@ -72,6 +102,7 @@ export default class Table extends Component {
               <th>#</th>
               <th>Numbers</th>
               <th>View</th>
+              <th>Share</th>
               <th>Delete</th>
             </tr>
           </thead>

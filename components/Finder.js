@@ -72,6 +72,10 @@ export default class Finder extends Component {
     this.setState({ allNums: this.state.allNums });
   }
 
+  shareNumber(number) {
+    console.log(number, "shared")
+  }
+
   render() {
     return (
       <div className="mainDiv">
@@ -120,6 +124,7 @@ export default class Finder extends Component {
             <Table
               table={this.state.allNums}
               DeleteNum={val => this.removeNumber(val)}
+              sharePublic={val => this.shareNumber(val)}
             />
           ) : (
             ""
