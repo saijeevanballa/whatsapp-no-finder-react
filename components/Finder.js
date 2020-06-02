@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+const axios = require("axios");
 import { find, create } from "../store/store";
 import Table from "./Table";
 import "../index.css";
+import { BASE_URL } from "../api-middleware";
+
 // const numbers = /^[0-9]+$/;
 
 export default class Finder extends Component {
@@ -32,7 +35,6 @@ export default class Finder extends Component {
   }
 
   componentDidMount() {
-    console.log("hello");
     let loadData = find("numbers");
     if (loadData) {
       this.setState({ allNums: loadData });
@@ -87,7 +89,15 @@ export default class Finder extends Component {
   }
 
   shareNumber(number) {
-    this.setState({ share: { share: true, number } });
+    this.setState({
+      share: { share: true, number: number },
+      form: {
+        name: "",
+        nameError: "",
+        gender: "",
+        genderError: ""
+      }
+    });
   }
 
   handleCancel() {
@@ -95,23 +105,57 @@ export default class Finder extends Component {
   }
 
   handleFormSubmit() {
+    let form = this.state.form;
     console.log("sumitted", this.state.form);
+    if (form.gender != "" && form.name != "") {
+      axios
+        .post(`${BASE_URL}`, {
+          ...form,
+          number: this.state.share.number
+        })
+        .then(function(response) {
+          console.log(response);
+        });
+      this.setState({
+        share: { share: false, number: null },
+        form: {
+          name: "",
+          nameError: "",
+          gender: "",
+          genderError: ""
+        }
+      });
+    } else {
+      if (form.gender == "") {
+        form = { ...form, genderError: "Please Select Gender" };
+      }
+      if (form.name == "") {
+        form = { ...form, nameError: "Please entred valid name number" };
+      }
+      alert("Plese enter mandatory fields.");
+      this.setState({ form: { ...form } });
+    }
   }
 
   handleFormGenderChange(event) {
     let form = this.state.form;
-    this.setState({ form: {...form, gender: event.target.value } });
+    if (event.target.value == "") {
+      form = { ...form, genderError: "Please Select Gender" };
+    } else {
+      form = { ...form, genderError: "" };
+    }
+    this.setState({ form: { ...form, gender: event.target.value } });
   }
 
   handleFormNameChange(event) {
     let form = this.state.form;
-    console.log(event.target.value)
-    if (/^[A-Za-z\s]+$/.test(event.target.value)) {
-      this.setState({ form: { ...form, nameError: "Please entred valid name number" } });
+    console.log(event.target.value);
+    if (!/^[A-Za-z\s]+$/.test(event.target.value)) {
+      form = { ...form, nameError: "Please entred valid name number" };
     } else {
-      this.setState({ form: {...form, nameError: "Please entred valid name number" } });
+      form = { ...form, nameError: "" };
     }
-    this.setState({ form: {...form, name: event.target.value } });
+    this.setState({ form: { ...form, name: event.target.value } });
   }
 
   render() {
@@ -174,7 +218,8 @@ export default class Finder extends Component {
                     value={this.state.share.number}
                     disabled
                   />
-                </div><br />
+                </div>
+                <br />
                 <div>
                   <label>Name:</label>
                   <input
@@ -184,8 +229,7 @@ export default class Finder extends Component {
                     value={this.state.form.name}
                     onChange={this.handleFormNameChange}
                   />
-                  
-                </div> 
+                </div>
                 <span className="error">{this.state.form.nameError}</span>
                 <br />
                 <div>
@@ -195,6 +239,7 @@ export default class Finder extends Component {
                     value={this.state.form.gender}
                     onChange={this.handleFormGenderChange}
                   >
+                    <option value="">Select Gender</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                   </select>

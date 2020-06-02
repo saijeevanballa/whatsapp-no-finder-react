@@ -64,29 +64,28 @@ export default class Public extends Component {
   componentDidMount() {
     axios
       .get(`${BASE_URL}`)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json, "from api");
-        this.setState({ table: json || [] });
+      .then(response => {
+        console.log(response, "from api");
+        this.setState({ table: response.data || [] });
       });
   }
 
-  handlerLike() {
+  handlerLike(id) {
     console.log("like");
   }
 
-  handlerDisLike() {
+  handlerDisLike(id) {
     console.log("dislike");
   }
 
-  handlerView() {
+  handlerView(id) {
     console.log("view");
   }
 
   render() {
     console.log(this.state.table);
     let tabel = this.state.table.map((val, i) => (
-      <div className="d-flex justify-content-around publicMain flex-wrap">
+      <div key={val._id} className="d-flex justify-content-around publicMain flex-wrap">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">
@@ -104,7 +103,7 @@ export default class Public extends Component {
                 >
                   <div className="d-flex flex-row justify-content-between">
                     <div className="mr-1">{like}</div>
-                    <div>2.3k</div>{" "}
+                    <div>2.3k</div>
                   </div>
                 </a>
               </div>
