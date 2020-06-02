@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Navbar from "./Navbar"
 
 export default class Public extends Component {
   constructor(props) {
@@ -7,7 +8,9 @@ export default class Public extends Component {
 
   render() {
     return (
+
       <div>
+      <Navbar/>
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Card title</h4>
