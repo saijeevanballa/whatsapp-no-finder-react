@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { find, create } from "../store/store";
 import Table from "./Table";
 import "../index.css";
-const numbers = /^[0-9]+$/;
+// const numbers = /^[0-9]+$/;
 
 export default class Finder extends Component {
   constructor() {
@@ -95,24 +95,27 @@ export default class Finder extends Component {
   }
 
   handleFormSubmit() {
-    console.log("sumitted");
+    console.log("sumitted", this.state.form);
   }
 
   handleFormGenderChange(event) {
-    this.setState({ form: { gender: event.target.value } });
+    let form = this.state.form;
+    this.setState({ form: {...form, gender: event.target.value } });
   }
 
-  handleFormNameChange() {
-    if (!/^[A-Za-z\s]+$/.test(event.target.value)) {
-      this.setState({ form: { nameError: "Please entred valid name number" } });
+  handleFormNameChange(event) {
+    let form = this.state.form;
+    console.log(event.target.value)
+    if (/^[A-Za-z\s]+$/.test(event.target.value)) {
+      this.setState({ form: { ...form, nameError: "Please entred valid name number" } });
     } else {
-      this.setState({ errorMsg: "" });
+      this.setState({ form: {...form, nameError: "Please entred valid name number" } });
     }
-    this.setState({ form: { name: event.target.value } });
+    this.setState({ form: {...form, name: event.target.value } });
   }
 
   render() {
-    console.log(this.state.share);
+    console.log(this.state.form);
     let card =
       !this.state.share.share && !this.state.share.number ? (
         <div className="d-flex row flex-wrap justify-content-center align-self-center">
@@ -171,7 +174,6 @@ export default class Finder extends Component {
                     value={this.state.share.number}
                     disabled
                   />
-                  <br />
                 </div><br />
                 <div>
                   <label>Name:</label>
@@ -182,8 +184,10 @@ export default class Finder extends Component {
                     value={this.state.form.name}
                     onChange={this.handleFormNameChange}
                   />
-                  <span className="error">{this.state.form.nameError}</span>
-                </div> <br />
+                  
+                </div> 
+                <span className="error">{this.state.form.nameError}</span>
+                <br />
                 <div>
                   <label>Gender:</label>
                   <select
@@ -194,9 +198,9 @@ export default class Finder extends Component {
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                   </select>
-                  <span className="error">{this.state.form.genderError}</span>
-                  <br />
                 </div>
+                <span className="error">{this.state.form.genderError}</span>
+                <br />
                 <br />
                 <div className="d-flexnjustify-content-center">
                   <button
