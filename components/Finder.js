@@ -201,7 +201,7 @@ export default class Finder extends Component {
           <div className="card">
             <div className="card-body">
               <h3 className="card-title text-center">
-                share number to Public{" "}
+                Share To Pubilc Numbers
               </h3>
               <br />
               <form>

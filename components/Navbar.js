@@ -11,7 +11,7 @@ const Navbar = () => {
         </a>
         <div>
           <a className="navbar-brand" href="/public">
-            Public
+            Public Numbers
           </a>
         </div>
       </nav>
