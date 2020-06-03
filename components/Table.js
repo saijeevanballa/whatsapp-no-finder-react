@@ -69,7 +69,7 @@ export default class Table extends Component {
           <div
             class="modal"
             id="exampleModal"
-            tabindex="-1"
+            tabIndex="-1"
             role="dialog"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"

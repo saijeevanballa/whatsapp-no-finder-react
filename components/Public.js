@@ -23,8 +23,11 @@ export default class Public extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      table: []
+      table: [],
+      number: ""
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -64,7 +67,7 @@ export default class Public extends Component {
   handlerSave(number) {
     let loadData = find("numbers");
     let updatedArray = [];
-    if (loadData) {
+    if (loadData.length) {
       updatedArray = loadData.includes(number)
         ? loadData
         : loadData.concat([number]);
@@ -74,16 +77,33 @@ export default class Public extends Component {
     create("numbers", updatedArray);
   }
 
+  handleChange(event) {
+    if (isNaN(event.target.value)) {
+      this.setState({ errorMsg: "Please entred valid number" });
+    } else {
+      this.setState({ errorMsg: "" });
+    }
+    this.setState({ number: event.target.value });
+  }
+
+  handleSubmit(event) {
+    console.log(this.state.number)
+    axios.get(`${BASE_URL}/?value=${this.state.number}`).then(response => {
+      this.setState({ table: response.data || [] });
+    }).catch(err=> console.log(err));
+    event.preventDefault();
+  }
+
   render() {
     let tabel = this.state.table.map((val, i) => (
       <div className="m-1" key={val._id}>
-        <div class="container d-flex justify-content-center position-sticky">
-          <div class="col-xs-12">
-            <div class="card w-100">
+        <div className="container d-flex justify-content-center position-sticky">
+          <div className="col-xs-12">
+            <div className="card w-100">
               <div>
-                <div class="dropdown">
+                <div className="dropdown">
                   <button
-                    class="btn btn-link button-toggle"
+                    className="btn btn-link button-toggle"
                     type="button"
                     id="gedf-drop1"
                     data-toggle="dropdown"
@@ -93,58 +113,55 @@ export default class Public extends Component {
                     {toggle}
                   </button>
                   <div
-                    class="dropdown-menu dropdown-menu-right"
+                    className="dropdown-menu dropdown-menu-right"
                     aria-labelledby="gedf-drop1"
                   >
-                    <div class="h6 dropdown-header">Configuration</div>
+                    <div className="h6 dropdown-header">Configuration</div>
                     <a
-                      class="dropdown-item"
+                      className="dropdown-item"
                       href="#"
                       onClick={() => this.handlerSave(val.number)}
                     >
                       Save
                     </a>
-                    <a class="dropdown-item" href="#">
-                      share
-                    </a>
-                    <a class="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#">
                       Report
                     </a>
                   </div>
                 </div>
               </div>
-              <div class="card-body text-center">
+              <div className="card-body text-center">
                 <div className="d-flex flex-row justify-content-center flex-wrap">
                   {val.gender == "M" ? male : female}
                   <div className="m-3">
                     <h4>{val.number}</h4>
-                    <p class="text-muted mb-0">{val.name}</p>
+                    <p className="text-muted mb-0">{val.name}</p>
                   </div>
                 </div>
                 <button
-                  class="btn btn-info btn-sm mt-3 mb-3"
+                  className="btn btn-info btn-sm mt-3 mb-3"
                   onClick={() => this.handlerSave(val.number)}
                 >
                   Save
                 </button>
-                <div class="border-top pt-3">
-                  <div class="row d-flex flex-row">
+                <div className="border-top pt-3">
+                  <div className="row d-flex flex-row">
                     <div
-                      class="col-4"
+                      className="col-4"
                       onClick={() => this.handlerLike(val._id)}
                     >
                       <h6>{formatLikes(val.likes)}</h6>
                       <p>{like}</p>
                     </div>
                     <div
-                      class="col-4"
+                      className="col-4"
                       onClick={() => this.handlerDisLike(val._id)}
                     >
                       <h6>{formatLikes(val.disLikes)}</h6>
                       <p>{dislike}</p>
                     </div>
                     <div
-                      class="col-4"
+                      className="col-4"
                       onClick={() => this.handlerView(val._id, val.number)}
                     >
                       <h6>{formatLikes(val.views)}</h6>
@@ -167,8 +184,12 @@ export default class Public extends Component {
             type="text"
             placeholder="Search Number"
             aria-label="Search"
+            value={this.state.number}
+            onChange={this.handleChange}
           />
-          <button className="btn btn-primary m-1">Search</button>
+          <button className="btn btn-primary m-1" onClick={this.handleSubmit}>
+            Search
+          </button>
         </div>
         {tabel.length ? (
           <div className="d-flex flex-row flex-wrap m-2">{tabel}</div>
