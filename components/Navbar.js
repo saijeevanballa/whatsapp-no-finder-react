@@ -3,10 +3,9 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import "../index.css";
 
 function Navbar() {
-  console.log(location.pathname);
   return (
     <div>
-      <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
+      <nav className="navbar navbar-toggleable-md navbar-dark bg-primary">
         <button
           className="navbar-toggler navbar-toggler-right"
           type="button"
@@ -18,10 +17,7 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <a
-          className="navbar-brand"
-          href="/"
-        >
+        <a className="navbar-brand text-white" href="/">
           Whatsapp Hub
         </a>
 
@@ -32,7 +28,7 @@ function Navbar() {
               className={location.pathname == "/" ? "active" : ""}
             >
               <a
-                className="nav-link"
+                className="nav-link text-white"
                 href="/"
               >
                 Home
@@ -40,12 +36,9 @@ function Navbar() {
             </li>
             <li
               className="nav-item"
-              className={location.pathname == "/public"  ? "active" : ""}
+              className={location.pathname == "/public" ? "active" : ""}
             >
-              <a
-                className="nav-link"
-                href="/public"
-              >
+              <a className="nav-link text-white" href="/public">
                 Public Numbers <span className="sr-only">(current)</span>
               </a>
             </li>
@@ -53,10 +46,7 @@ function Navbar() {
               className="nav-item"
               className={location.pathname == "/groups" ? "active" : ""}
             >
-              <a
-                className="nav-link"
-                href="#"
-              >
+              <a className="nav-link text-white" href="#">
                 Public Groups
               </a>
             </li>
