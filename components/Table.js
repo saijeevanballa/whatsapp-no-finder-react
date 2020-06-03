@@ -73,9 +73,13 @@ const del = (
 export default class Table extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      number: ""
+    };
     this.handleUrl = this.handleUrl.bind(this);
     this.handleSms = this.handleSms.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
+    this.handleNumber = this.handleNumber.bind(this);
   }
 
   handleUrl(number) {
@@ -90,13 +94,15 @@ export default class Table extends Component {
     window.open(`sms://+91${number}`, "_blank");
   }
 
+  handleNumber(number) {
+    this.setState({number})
+  }
+
   render() {
     let tabel = this.props.table.map((val, i) => (
       <tr key={i}>
         <th scope="row">{i + 1}</th>
-        <td>
-          {val}
-        </td>
+        <td>{val}</td>
         <td onClick={() => this.handleUrl(val)}>
           <a>{whatsapp}</a>
         </td>
@@ -107,8 +113,10 @@ export default class Table extends Component {
           <a>{phone}</a>
         </td>
         <td
+          data-toggle="modal"
+          data-target="#exampleModal"
           onClick={() => {
-            this.props.sharePublic(val);
+            this.handleNumber(val);
           }}
         >
           {share}
@@ -125,6 +133,56 @@ export default class Table extends Component {
 
     return (
       <div>
+        <div>
+          <div
+            class="modal"
+            id="exampleModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Share To Public Numbers
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Notice: This {this.state.number} will visible to all whatsapp hub users.
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    onClick={() => {
+                      this.props.sharePublic(this.state.number);
+                    }}
+                    data-dismiss="modal"
+                  >
+                    Agree
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <table className="table table-hover">
           <thead>
             <tr>

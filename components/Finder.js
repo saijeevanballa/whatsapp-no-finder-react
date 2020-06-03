@@ -112,8 +112,7 @@ export default class Finder extends Component {
           ...form,
           number: this.state.share.number
         })
-        .then(function(response) {
-        });
+        .then(function(response) {});
       this.setState({
         share: { share: false, number: null },
         form: {
