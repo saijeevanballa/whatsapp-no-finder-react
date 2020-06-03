@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api-middleware";
 import { formatLikes } from "../utils/utils";
+import { find, create } from "../store/store";
 import Navbar from "./Navbar";
 import {
   like,
@@ -12,7 +13,9 @@ import {
   male,
   whatsapp,
   newEye,
-  toggle
+  toggle,
+  likeBlue,
+  dislikeRed
 } from "../utils/svg";
 import "../index.css";
 
@@ -58,6 +61,19 @@ export default class Public extends Component {
     window.open(`https://api.whatsapp.com/send?phone=91${number}`, "_blank");
   }
 
+  handlerSave(number) {
+    let loadData = find("numbers");
+    let updatedArray = [];
+    if (loadData) {
+      updatedArray = loadData.includes(number)
+        ? loadData
+        : loadData.concat([number]);
+    } else {
+      updatedArray = [number];
+    }
+    create("numbers", this.state.allNums);
+  }
+
   render() {
     let tabel = this.state.table.map((val, i) => (
       <div className="m-1" key={val._id}>
@@ -67,7 +83,7 @@ export default class Public extends Component {
               <div>
                 <div class="dropdown">
                   <button
-                    class="btn btn-link float-right"
+                    class="btn btn-link button-toggle"
                     type="button"
                     id="gedf-drop1"
                     data-toggle="dropdown"
@@ -81,7 +97,11 @@ export default class Public extends Component {
                     aria-labelledby="gedf-drop1"
                   >
                     <div class="h6 dropdown-header">Configuration</div>
-                    <a class="dropdown-item" href="#">
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      onClick={() => this.handlerSave(val.number)}
+                    >
                       Save
                     </a>
                     <a class="dropdown-item" href="#">
@@ -101,7 +121,12 @@ export default class Public extends Component {
                     <p class="text-muted mb-0">{val.name}</p>
                   </div>
                 </div>
-                <button class="btn btn-info btn-sm mt-3 mb-3">Save</button>
+                <button
+                  class="btn btn-info btn-sm mt-3 mb-3"
+                  onClick={() => this.handlerSave(val.number)}
+                >
+                  Save
+                </button>
                 <div class="border-top pt-3">
                   <div class="row d-flex flex-row">
                     <div
@@ -120,7 +145,7 @@ export default class Public extends Component {
                     </div>
                     <div
                       class="col-4"
-                      onClick={() => this.handlerView(val._id)}
+                      onClick={() => this.handlerView(val._id, val.number)}
                     >
                       <h6>{formatLikes(val.views)}</h6>
                       <p>{newEye}</p>
