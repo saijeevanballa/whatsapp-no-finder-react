@@ -148,21 +148,21 @@ export default class Public extends Component {
                 <div className="border-top pt-3">
                   <div className="row d-flex flex-row">
                     <div
-                      className="col-4"
+                      className="col-4 btn-gray"
                       onClick={() => this.handlerLike(val._id)}
                     >
                       <h6>{formatLikes(val.likes)}</h6>
                       <p className="">{like}</p>
                     </div>
                     <div
-                      className="col-4"
+                      className="col-4 btn-gray"
                       onClick={() => this.handlerDisLike(val._id)}
                     >
                       <h6>{formatLikes(val.disLikes)}</h6>
                       <p>{dislike}</p>
                     </div>
                     <div
-                      className="col-4"
+                      className="col-4 btn-gray"
                       onClick={() => this.handlerView(val._id, val.number)}
                     >
                       <h6>{formatLikes(val.views)}</h6>

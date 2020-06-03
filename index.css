@@ -77,6 +77,15 @@ margin: 2%
   border: 0px;
 }
 
+.btn-gray:hover{
+  background: lightgray;
+  border: 0px;
+  border-radius: 10px;
+  padding: 5px;
+  padding-top: 10%;
+  width: 60%
+}
+
 .public-card{
   width: 100%;
 }
