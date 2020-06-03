@@ -71,7 +71,7 @@ export default class Public extends Component {
     } else {
       updatedArray = [number];
     }
-    create("numbers", this.state.allNums);
+    create("numbers", updatedArray);
   }
 
   render() {
