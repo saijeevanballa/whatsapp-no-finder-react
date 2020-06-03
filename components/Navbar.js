@@ -2,22 +2,13 @@ import React, { Component } from "react";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import "../index.css";
 
-class Navbar extends  Component {
-  constructor() {
-    super();
-    this.state = {
-      name: "React"
-    };
-  }
-
-  render(){
-    let urlPath = window.location.href
-    console.log(urlPath)
-    return (
+function Navbar() {
+  console.log(location.pathname);
+  return (
     <div>
-      <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+      <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
         <button
-          class="navbar-toggler navbar-toggler-right"
+          className="navbar-toggler navbar-toggler-right"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -25,26 +16,47 @@ class Navbar extends  Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon" />
+          <span className="navbar-toggler-icon" />
         </button>
-        <a class="navbar-brand" href="/">
+        <a
+          className="navbar-brand"
+          href="/"
+        >
           Whatsapp Hub
         </a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li className="nav-item" className={urlPath.includes("/")? "active": ""}>
-              <a class="nav-link" href="/">
-                Home <span class="sr-only">(current)</span>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li
+              className="nav-item"
+              className={location.pathname == "/" ? "active" : ""}
+            >
+              <a
+                className="nav-link"
+                href="/"
+              >
+                Home
               </a>
             </li>
-            <li class="nav-item" lassName={urlPath.includes("/public")? "active": ""}>
-              <a class="nav-link" href="/public">
-                Public Numbers
+            <li
+              className="nav-item"
+              className={location.pathname == "/public"  ? "active" : ""}
+            >
+              <a
+                className="nav-link"
+                href="/public"
+              >
+                Public Numbers <span className="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li
+              className="nav-item"
+              className={location.pathname == "/groups" ? "active" : ""}
+            >
+              <a
+                className="nav-link"
+                href="#"
+              >
                 Public Groups
               </a>
             </li>
@@ -53,7 +65,6 @@ class Navbar extends  Component {
       </nav>
     </div>
   );
-  }
-};
+}
 
 export default Navbar;
