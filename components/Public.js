@@ -139,20 +139,24 @@ export default class Public extends Component {
                   </div>
                 </div>
                 <button
-                  className="btn btn-info btn-sm mt-3 mb-3"
+                  className="btn active btn-info btn-sm mt-3 mb-3"
                   onClick={() => this.handlerSave(val.number)}
                 >
                   Save
                 </button>
+
                 <div className="border-top pt-3">
-                  <div className="row d-flex flex-row">
+                  <div className="row d-flex flex-row justify-content-around">
+                     <button type="button" class="btn  btn-sm">
                     <div
                       className="col-4"
                       onClick={() => this.handlerLike(val._id)}
                     >
                       <h6>{formatLikes(val.likes)}</h6>
-                      <p>{like}</p>
+                      <p className="">{like}</p>
                     </div>
+                     </button>
+                       <button type="button" class="btn  btn-sm">
                     <div
                       className="col-4"
                       onClick={() => this.handlerDisLike(val._id)}
@@ -160,6 +164,8 @@ export default class Public extends Component {
                       <h6>{formatLikes(val.disLikes)}</h6>
                       <p>{dislike}</p>
                     </div>
+                     </button>
+                    <button type="button" class="btn  btn-sm">
                     <div
                       className="col-4"
                       onClick={() => this.handlerView(val._id, val.number)}
@@ -167,6 +173,7 @@ export default class Public extends Component {
                       <h6>{formatLikes(val.views)}</h6>
                       <p>{newEye}</p>
                     </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -178,7 +185,7 @@ export default class Public extends Component {
     return (
       <div>
         <Navbar />
-        <div className="d-flex flex-row mt-2">
+        <div className="d-flex flex-row m-2">
           <input
             className="form-control m-1"
             type="text"
