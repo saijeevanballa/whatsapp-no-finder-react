@@ -44,7 +44,6 @@ export default class Public extends Component {
     this.handleMessageChange = this.handleMessageChange.bind(this);
     this.handleReportSubmit = this.handleReportSubmit.bind(this);
     this.handleReport = this.handleReport.bind(this);
-
   }
 
   componentDidMount() {
@@ -53,9 +52,9 @@ export default class Public extends Component {
     });
   }
 
-  handleReport(number){
-    console.log(number)
-    this.state.form.number = number
+  handleReport(number) {
+    console.log(number);
+    this.state.form.number = number;
   }
 
   handleEmailChange(event) {
@@ -221,7 +220,7 @@ export default class Public extends Component {
                       data-toggle="modal"
                       data-target="#reportModel"
                       data-whatever={val.number}
-                      onClick={()=> this.handleReport(val.number)}
+                      onClick={() => this.handleReport(val.number)}
                       href="#"
                     >
                       Report
@@ -389,16 +388,19 @@ export default class Public extends Component {
                 </button>
                 <div>
                   {form.email != "" &&
+                  form.message != "" &&
                   form.emailError == "" &&
                   form.messageError == "" ? (
                     <button
                       type="button"
                       className="btn btn-primary"
-                      data-toggle="modal"
-                      href="#ignismyModal"
                       onClick={this.handleReportSubmit}
+                      data-dismiss="modal"
                     >
-                      Send message
+                      <a data-toggle="modal" href="#ignismyModal">
+                        {" "}
+                        Send message
+                      </a>
                     </button>
                   ) : (
                     <button
@@ -440,7 +442,7 @@ export default class Public extends Component {
             </div>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     );
   }
