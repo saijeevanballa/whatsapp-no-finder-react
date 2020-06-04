@@ -1,20 +1,14 @@
 import React from "react";
+import "../index.css";
 
 export default function Footer() {
   return (
     <div>
       <footer
         id="sticky-footer"
-        className="py-4 bg-dark fixed-bottom text-white"
-        style={{
-          flexShrink: "none",
-          marginTop: "110%",
-          position: "relative",
-          width: "100%",
-          overflow: "hidden"
-        }}
+        className="footer bg-dark text-white"
       >
-        <div className="container text-center ">
+        <div className="footer_contents text-center ">
           <p><a className="text-white" href="https://github.com/saijeevanballa" target="_blank">Follow me on Github</a></p>
         </div>
       </footer>
