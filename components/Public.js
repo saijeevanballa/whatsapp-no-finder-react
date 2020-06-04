@@ -396,7 +396,6 @@ export default class Public extends Component {
                       className="btn btn-primary"
                       data-toggle="modal"
                       href="#ignismyModal"
-                      data-dismiss="modal"
                       onClick={this.handleReportSubmit}
                     >
                       Send message

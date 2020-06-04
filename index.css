@@ -157,7 +157,7 @@ container *:after {
 
 
 .footer {
-    height:24px; 
+    height:40px; 
     width: 100%; 
     background-image: none;
     background-repeat: repeat;
@@ -174,4 +174,8 @@ container *:after {
     width: 1000px; 
     margin:auto;
 
+}
+
+.foot-con{
+  margin-top: 20%
 }

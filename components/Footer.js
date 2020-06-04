@@ -8,8 +8,8 @@ export default function Footer() {
         id="sticky-footer"
         className="footer bg-dark text-white"
       >
-        <div className="footer_contents text-center ">
-          <p><a className="text-white" href="https://github.com/saijeevanballa" target="_blank">Follow me on Github</a></p>
+        <div className="text-center ">
+          <p><a className="align-text-bottom text-white" href="https://github.com/saijeevanballa" target="_blank">Follow me on Github</a></p>
         </div>
       </footer>
     </div>
