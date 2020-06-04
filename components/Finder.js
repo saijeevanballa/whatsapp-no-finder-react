@@ -106,7 +106,7 @@ export default class Finder extends Component {
 
   handleFormSubmit() {
     let form = this.state.form;
-    if (form.gender != "" && form.name != "") {
+    if (form.gender != "" && form.name != "" && form.genderError != "" && form.nameError != "") {
       axios
         .post(`${BASE_URL}`, {
           ...form,

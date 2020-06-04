@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api-middleware";
-import { formatLikes } from "../utils/utils";
+import { formatLikes, validateEmail } from "../utils/utils";
 import { find, create } from "../store/store";
 import Navbar from "./Navbar";
 import {
@@ -16,7 +16,8 @@ import {
   toggle,
   likeBlue,
   dislikeRed,
-  search
+  search,
+  emailSent
 } from "../utils/svg";
 import "../index.css";
 
@@ -26,16 +27,82 @@ export default class Public extends Component {
     this.state = {
       table: [],
       number: "",
-      notification: ""
+      notification: "",
+      form: {
+        number: "",
+        email: "",
+        emailError: "",
+        message: "",
+        messageError: ""
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleMessageChange = this.handleMessageChange.bind(this);
+    this.handleReportSubmit = this.handleReportSubmit.bind(this);
   }
 
   componentDidMount() {
     axios.get(`${BASE_URL}`).then(response => {
       this.setState({ table: response.data || [] });
     });
+  }
+
+  handleEmailChange(event) {
+    console.log(event.target.value);
+    let form = this.state.form;
+    if (event.target.value == "") {
+      form = { ...form, emailError: "Email is mandatory" };
+    } else if (!validateEmail(event.target.value)) {
+      form = { ...form, emailError: "Please enter valid email" };
+    } else {
+      form = { ...form, emailError: "" };
+    }
+    this.setState({ form: { ...form, email: event.target.value } });
+  }
+
+  handleMessageChange(event) {
+    console.log(event.target.value);
+    let form = this.state.form;
+    if (event.target.value == "") {
+      form = { ...form, messageError: "Message is mandatory" };
+    } else if (event.target.value.length > 200) {
+      form = { ...form, messageError: "Message less than 200 characters" };
+    } else {
+      form = { ...form, messageError: "" };
+    }
+    this.setState({ form: { ...form, message: event.target.value } });
+  }
+
+  handleReportSubmit(id) {
+    let form = this.state.form;
+    if (form.gender != "" && form.name != "") {
+      axios
+        .post(`${BASE_URL}`, {
+          ...form,
+          number: this.state.share.number
+        })
+        .then(function(response) {});
+      this.setState({
+        share: { share: false, number: null },
+        form: {
+          name: "",
+          nameError: "",
+          gender: "",
+          genderError: ""
+        }
+      });
+    } else {
+      if (form.gender == "") {
+        form = { ...form, genderError: "Please Select Gender" };
+      }
+      if (form.name == "") {
+        form = { ...form, nameError: "Please entred valid name number" };
+      }
+      alert("Plese enter mandatory fields.");
+      this.setState({ form: { ...form } });
+    }
   }
 
   handlerLike(id) {
@@ -133,7 +200,13 @@ export default class Public extends Component {
                     >
                       Save
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a
+                      className="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#reportModel"
+                      data-whatever={val.number}
+                      href="#"
+                    >
                       Report
                     </a>
                   </div>
@@ -148,7 +221,7 @@ export default class Public extends Component {
                   </div>
                 </div>
                 <button
-                  className="btn btn btn-outline-primary btn-sm mt-3 mb-3"
+                  className="btn btn-outline-primary btn-block btn-sm mt-3 mb-3"
                   onClick={() => this.handlerSave(val.number)}
                 >
                   Save
@@ -212,7 +285,8 @@ export default class Public extends Component {
             data-target="#collapse-search"
             aria-expanded="false"
             aria-controls="collapse-search"
-            onClick={this.handleSubmit}>
+            onClick={this.handleSubmit}
+          >
             {search}
           </button>
           <span id="collapse-search" class="collapse">
@@ -233,6 +307,109 @@ export default class Public extends Component {
             No Data Found
           </p>
         )}
+
+        <div
+          class="modal fade"
+          id="reportModel"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Complaint
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">
+                      Email:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="recipient-name"
+                      value={this.state.form.email}
+                      onChange={this.handleEmailChange}
+                    />
+                    <span className="error">{this.state.form.emailError}</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">
+                      Message:
+                    </label>
+                    <textarea
+                      class="form-control"
+                      id="message-text"
+                      value={this.state.form.message}
+                      onChange={this.handleMessageChange}
+                    />
+                    <span className="error">
+                      {this.state.form.messageError}
+                    </span>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  href="#ignismyModal"
+                  data-dismiss="modal"
+                  onClick={this.handleReportSubmit}
+                >
+                  Send message
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="ignismyModal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label=""
+                >
+                  <span>×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="d-flex flex-column flex-wrap align-items-center justify-content-center">
+                  <div>{emailSent}</div>
+                  <h1>Thank You!</h1>
+                  <p className="">
+                    Your submission is received and we will contact you soon.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
