@@ -53,7 +53,7 @@ export default class Public extends Component {
 
   handleReport(number){
     console.log(number)
-    this.form.number = number
+    this.state.form.number = number
   }
 
   handleEmailChange(event) {
@@ -387,7 +387,6 @@ export default class Public extends Component {
                 </button>
                 <div>
                   {form.email != "" &&
-                  form.message != "" &&
                   form.emailError == "" &&
                   form.messageError == "" ? (
                     <button
