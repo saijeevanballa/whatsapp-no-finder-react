@@ -8,7 +8,7 @@ export default function Footer() {
         className="py-4 bg-dark text-white"
         style={{
           flexShrink: "none",
-          marginTop: "80%",
+          marginTop: "100%",
           position: "relative",
           width: "100%",
           overflow: "hidden"
