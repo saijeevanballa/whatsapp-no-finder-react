@@ -19,7 +19,7 @@ function Navbar(props) {
         </button>
         <div>
           <button
-            class="btn btn-default btn-lg btn-link text-white"
+            className="btn btn-default btn-lg btn-link text-white"
             style={{ textDecoration: "none" }}
           >
             <Link
@@ -30,7 +30,7 @@ function Navbar(props) {
               Whatsapp Hub
             </Link>
           </button>
-          <span class="badge badge-notify">{props.num || ""}</span>
+          <span className="badge badge-notify">{props.num || ""}</span>
         </div>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -60,33 +60,33 @@ function Navbar(props) {
         </div>
       </nav>
 
-      <nav class="navbar navbar-light bg-light fixed-bottom">
-        <span class="navbar-text">Navbar text with an inline element</span>
+      <nav className="navbar navbar-light bg-light fixed-bottom">
+        <span className="navbar-text">Navbar text with an inline element</span>
       </nav>
 
       <div
-        class="modal fade bd-example-modal-sm"
+        className="modal fade bd-example-modal-sm"
         tabindex="-1"
         role="dialog"
         aria-labelledby="mySmallModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">
+        <div className="modal-dialog modal-sm">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">
                 Public Groups
               </h5>
               <button
                 type="button"
-                class="close"
+                className="close"
                 data-dismiss="modal"
                 aria-label="Close"
               >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body text-danger">Comming Soon..</div>
+            <div className="modal-body text-danger">Comming Soon..</div>
           </div>
         </div>
       </div>

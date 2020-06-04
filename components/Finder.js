@@ -228,7 +228,7 @@ export default class Finder extends Component {
                 </div>
                 <br />
                 <div className="form-group">
-                  <label class="bmd-label-floating">Gender</label>
+                  <label className="bmd-label-floating">Gender</label>
                   <select 
                     className="form-control"
                     value={this.state.form.gender}

@@ -292,9 +292,9 @@ export default class Public extends Component {
     return (
       <div>
         <Navbar num={this.state.notification || ""} />
-        <div class="bmd-form-group bmd-collapse-inline pull-xs-right m-3">
+        <div className="bmd-form-group bmd-collapse-inline pull-xs-right m-3">
           <button
-            class="btn bmd-btn-icon m-1"
+            className="btn bmd-btn-icon m-1"
             for="search"
             data-toggle="collapse"
             data-target="#collapse-search"
@@ -304,9 +304,9 @@ export default class Public extends Component {
           >
             {search}
           </button>
-          <span id="collapse-search" class="collapse">
+          <span id="collapse-search" className="collapse">
             <input
-              class="form-control m-1 mr-5"
+              className="form-control m-1 mr-5"
               type="text"
               id="search"
               placeholder="Search Number..."
@@ -324,49 +324,49 @@ export default class Public extends Component {
         )}
 
         <div
-          class="modal fade"
+          className="modal fade"
           id="reportModel"
           tabindex="-1"
           role="dialog"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
                   Complaint
                 </h5>
                 <button
                   type="button"
-                  class="close"
+                  className="close"
                   data-dismiss="modal"
                   aria-label="Close"
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <form>
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">
+                  <div className="form-group">
+                    <label for="recipient-name" className="col-form-label">
                       Email:
                     </label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="recipient-name"
                       value={this.state.form.email}
                       onChange={this.handleEmailChange}
                     />
                     <span className="error">{this.state.form.emailError}</span>
                   </div>
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">
+                  <div className="form-group">
+                    <label for="message-text" className="col-form-label">
                       Message:
                     </label>
                     <textarea
-                      class="form-control"
+                      className="form-control"
                       id="message-text"
                       value={this.state.form.message}
                       onChange={this.handleMessageChange}
@@ -377,10 +377,10 @@ export default class Public extends Component {
                   </div>
                 </form>
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   data-dismiss="modal"
                 >
                   Close
@@ -391,7 +391,7 @@ export default class Public extends Component {
                   form.messageError == "" ? (
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                       data-toggle="modal"
                       href="#ignismyModal"
                       data-dismiss="modal"
@@ -402,7 +402,7 @@ export default class Public extends Component {
                   ) : (
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                       onClick={this.handleReportSubmit}
                     >
                       Send message
@@ -414,21 +414,21 @@ export default class Public extends Component {
           </div>
         </div>
 
-        <div class="modal fade" id="ignismyModal" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
+        <div className="modal fade" id="ignismyModal" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
                 <button
                   type="button"
-                  class="close"
+                  className="close"
                   data-dismiss="modal"
                   aria-label=""
                 >
                   <span>×</span>
                 </button>
               </div>
-              <div class="modal-body">
-                <div class="d-flex flex-column flex-wrap align-items-center justify-content-center">
+              <div className="modal-body">
+                <div className="d-flex flex-column flex-wrap align-items-center justify-content-center">
                   <div>{emailSent}</div>
                   <h1>Thank You!</h1>
                   <p className="">

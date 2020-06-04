@@ -4,53 +4,53 @@ export default class ModelInput extends Component {
   render() {
     return (
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 New message
               </h5>
               <button
                 type="button"
-                class="close"
+                className="close"
                 data-dismiss="modal"
                 aria-label="Close"
               >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form>
-                <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="form-group">
+                  <label for="recipient-name" className="col-form-label">
                     Recipient:
                   </label>
-                  <input type="text" class="form-control" id="recipient-name" />
+                  <input type="text" className="form-control" id="recipient-name" />
                 </div>
-                <div class="form-group">
-                  <label for="message-text" class="col-form-label">
+                <div className="form-group">
+                  <label for="message-text" className="col-form-label">
                     Message:
                   </label>
-                  <textarea class="form-control" id="message-text" />
+                  <textarea className="form-control" id="message-text" />
                 </div>
               </form>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">
+              <button type="button" className="btn btn-primary">
                 Send message
               </button>
             </div>
