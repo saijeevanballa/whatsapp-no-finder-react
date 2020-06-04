@@ -5,10 +5,10 @@ export default function Footer() {
     <div>
       <footer
         id="sticky-footer"
-        className="py-4 bg-dark text-white"
+        className="py-4 bg-dark fixed-bottom text-white"
         style={{
           flexShrink: "none",
-          marginTop: "100%",
+          marginTop: "110%",
           position: "relative",
           width: "100%",
           overflow: "hidden"
