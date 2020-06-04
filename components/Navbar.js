@@ -60,13 +60,9 @@ function Navbar(props) {
         </div>
       </nav>
 
-      <nav className="navbar navbar-light bg-light fixed-bottom">
-        <span className="navbar-text">Navbar text with an inline element</span>
-      </nav>
-
       <div
         className="modal fade bd-example-modal-sm"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="mySmallModalLabel"
         aria-hidden="true"

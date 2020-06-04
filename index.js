@@ -4,6 +4,8 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import Finder from "./components/Finder";
 import Navbar from "./components/Navbar";
 import Public from "./components/Public";
+import Footer from "./components/Footer";
+
 
 
 class App extends Component {
@@ -19,6 +21,7 @@ class App extends Component {
       <div>
         <Navbar />
         <Finder />
+        <Footer/>
       </div>
     );
   }

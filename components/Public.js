@@ -4,6 +4,8 @@ import { BASE_URL } from "../api-middleware";
 import { formatLikes, validateEmail } from "../utils/utils";
 import { find, create } from "../store/store";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
+
 import {
   like,
   dislike,
@@ -326,7 +328,7 @@ export default class Public extends Component {
         <div
           className="modal fade"
           id="reportModel"
-          tabindex="-1"
+          tabIndex="-1"
           role="dialog"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
@@ -439,6 +441,7 @@ export default class Public extends Component {
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     );
   }
