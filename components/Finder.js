@@ -163,29 +163,30 @@ export default class Finder extends Component {
               <h4 className="card-title text-center">Enter Phone Number</h4>
               <br />
               <form>
-                <div>
+                <div className="form-group">
+                  <label className="bmd-label-floating">Number</label>
                   <input
-                    className="w-100 text-center"
+                    className="form-control text-center"
                     type="text"
                     name="Tel"
-                    placeholder="Enter 10 digits phone number"
                     value={this.state.number}
                     onChange={this.handleChange}
                   />
+                  <span className="error">{this.state.errorMsg}</span>
                 </div>
-                <span className="error">{this.state.errorMsg}</span>
+
                 <br />
                 <div className="d-flexnjustify-content-center">
                   <button
                     type="button"
-                    className="btn btn-primary btn-block"
+                    className="btn btn-outline-primary btn-raised btn-block"
                     onClick={this.handleSubmit}
                   >
                     submit
                   </button>
                   <button
                     type="button"
-                    className="btn btn-primary btn-block"
+                    className="btn btn-outline-primary btn-raised btn-block"
                     onClick={this.handleReset}
                   >
                     Reset
@@ -204,10 +205,10 @@ export default class Finder extends Component {
               </h3>
               <br />
               <form>
-                <div>
-                  <label>Number:</label>
+                <div className="form-group">
+                  <label className="bmd-label-floating">Number</label>
                   <input
-                    className="w-100 text-center"
+                    className="form-control text-center"
                     type="text"
                     name="Tel"
                     value={this.state.share.number}
@@ -215,22 +216,21 @@ export default class Finder extends Component {
                   />
                 </div>
                 <br />
-                <div>
-                  <label>Name:</label>
+                <div className="form-group">
+                  <label className="bmd-label-floating">Name</label>
                   <input
-                    className="w-100 text-center"
+                    className="w-100 form-control text-center"
                     type="text"
-                    placeholder="Enter User Name"
                     value={this.state.form.name}
                     onChange={this.handleFormNameChange}
                   />
+                  <span className="error">{this.state.form.nameError}</span>
                 </div>
-                <span className="error">{this.state.form.nameError}</span>
                 <br />
-                <div>
-                  <label>Gender:</label>
-                  <select
-                    className="form-control text-center"
+                <div className="form-group">
+                  <label class="bmd-label-floating">Gender</label>
+                  <select 
+                    className="form-control"
                     value={this.state.form.gender}
                     onChange={this.handleFormGenderChange}
                   >
@@ -238,21 +238,22 @@ export default class Finder extends Component {
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                   </select>
+                  <span className="error">{this.state.form.genderError}</span>
                 </div>
-                <span className="error">{this.state.form.genderError}</span>
+
                 <br />
                 <br />
                 <div className="d-flexnjustify-content-center">
                   <button
                     type="button"
-                    className="btn btn-primary btn-block"
+                    className="btn btn-primary btn-outline-primary btn-raised btn-block"
                     onClick={this.handleFormSubmit}
                   >
                     submit
                   </button>
                   <button
                     type="button"
-                    className="btn btn-primary btn-block"
+                    className="btn btn-primary btn-outline-primary btn-raised btn-block"
                     onClick={this.handleCancel}
                   >
                     cancel
@@ -265,7 +266,7 @@ export default class Finder extends Component {
       );
 
     return (
-      <div className="mainDiv">
+      <div className="mainDiv mt-3">
         <div className="inputDiv">{card}</div>
         <div className="tableDiv">
           {this.state.allNums.length ? (

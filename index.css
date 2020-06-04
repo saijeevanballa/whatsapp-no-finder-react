@@ -1,3 +1,4 @@
+
 /* .main{
   height: 100%;
 } */
@@ -41,7 +42,7 @@ margin: 2%
 
 .error {
   color:#db2269;
-  font-size: 0.625em;
+  font-size: 10px;
   display: relative;
 }
 
@@ -143,4 +144,23 @@ container *:after {
    position:absolute;
    right:1px;
    top  :2px;
+}
+
+
+.badge-notify{
+   background:red;
+   position:relative;
+   top: -15px;
+   left: -20px;
+   border-radius: 50px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
 }

@@ -15,7 +15,8 @@ import {
   newEye,
   toggle,
   likeBlue,
-  dislikeRed
+  dislikeRed,
+  search
 } from "../utils/svg";
 import "../index.css";
 
@@ -24,7 +25,8 @@ export default class Public extends Component {
     super(props);
     this.state = {
       table: [],
-      number: ""
+      number: "",
+      notification: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -71,8 +73,12 @@ export default class Public extends Component {
       updatedArray = loadData.includes(number)
         ? loadData
         : loadData.concat([number]);
+      if (!loadData.includes(number)) {
+        this.setState({ notification: Number(this.state.notification) + 1 });
+      }
     } else {
       updatedArray = [number];
+      this.setState({ notification: 1 });
     }
     create("numbers", updatedArray);
   }
@@ -87,10 +93,13 @@ export default class Public extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state.number)
-    axios.get(`${BASE_URL}/?value=${this.state.number}`).then(response => {
-      this.setState({ table: response.data || [] });
-    }).catch(err=> console.log(err));
+    console.log(this.state.number);
+    axios
+      .get(`${BASE_URL}/?value=${this.state.number}`)
+      .then(response => {
+        this.setState({ table: response.data || [] });
+      })
+      .catch(err => console.log(err));
     event.preventDefault();
   }
 
@@ -139,37 +148,53 @@ export default class Public extends Component {
                   </div>
                 </div>
                 <button
-                  className="btn btn-info btn-sm mt-3 mb-3"
+                  className="btn btn btn-outline-primary btn-sm mt-3 mb-3"
                   onClick={() => this.handlerSave(val.number)}
                 >
                   Save
                 </button>
-
-                <div className="border-top pt-3">
-                  <div className="row d-flex flex-row">
-                    <div
-                      className="col-4 btn-gray"
-                      onClick={() => this.handlerLike(val._id)}
-                    >
-                      <h6>{formatLikes(val.likes)}</h6>
-                      <p className="">{like}</p>
-                    </div>
-                    <div
-                      className="col-4 btn-gray"
-                      onClick={() => this.handlerDisLike(val._id)}
-                    >
-                      <h6>{formatLikes(val.disLikes)}</h6>
-                      <p>{dislike}</p>
-                    </div>
-                    <div
-                      className="col-4 btn-gray"
-                      onClick={() => this.handlerView(val._id, val.number)}
-                    >
-                      <h6>{formatLikes(val.views)}</h6>
-                      <p>{newEye}</p>
+                <fieldset disabled>
+                  <div className="border-top pt-3">
+                    <div className="row d-flex flex-row">
+                      <div
+                        className="col-4"
+                        onClick={() => this.handlerLike(val._id)}
+                      >
+                        <h6>{formatLikes(val.likes)}</h6>
+                        <button
+                          type="button"
+                          className="btn btn-primary bmd-btn-fab"
+                        >
+                          {like}
+                        </button>
+                      </div>
+                      <div
+                        className="col-4"
+                        onClick={() => this.handlerDisLike(val._id)}
+                      >
+                        <h6>{formatLikes(val.disLikes)}</h6>
+                        <button
+                          type="button"
+                          className="btn btn-danger bmd-btn-fab"
+                        >
+                          {dislike}
+                        </button>
+                      </div>
+                      <div
+                        className="col-4"
+                        onClick={() => this.handlerView(val._id, val.number)}
+                      >
+                        <h6>{formatLikes(val.views)}</h6>
+                        <button
+                          type="button"
+                          className="btn btn-success bmd-btn-fab"
+                        >
+                          {whatsapp}
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </fieldset>
               </div>
             </div>
           </div>
@@ -178,19 +203,28 @@ export default class Public extends Component {
     ));
     return (
       <div>
-        <Navbar />
-        <div className="d-flex flex-row mt-2">
-          <input
-            className="form-control m-1"
-            type="text"
-            placeholder="Search Number"
-            aria-label="Search"
-            value={this.state.number}
-            onChange={this.handleChange}
-          />
-          <button className="btn btn-primary m-1" onClick={this.handleSubmit}>
-            Search
+        <Navbar num={this.state.notification || ""} />
+        <div class="bmd-form-group bmd-collapse-inline pull-xs-right m-3">
+          <button
+            class="btn bmd-btn-icon m-1"
+            for="search"
+            data-toggle="collapse"
+            data-target="#collapse-search"
+            aria-expanded="false"
+            aria-controls="collapse-search"
+            onClick={this.handleSubmit}>
+            {search}
           </button>
+          <span id="collapse-search" class="collapse">
+            <input
+              class="form-control m-1 mr-5"
+              type="text"
+              id="search"
+              placeholder="Search Number..."
+              value={this.state.number}
+              onChange={this.handleChange}
+            />
+          </span>
         </div>
         {tabel.length ? (
           <div className="d-flex flex-row flex-wrap m-2">{tabel}</div>
