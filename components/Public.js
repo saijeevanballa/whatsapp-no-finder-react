@@ -41,12 +41,19 @@ export default class Public extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleMessageChange = this.handleMessageChange.bind(this);
     this.handleReportSubmit = this.handleReportSubmit.bind(this);
+    this.handleReport = this.handleReport.bind(this);
+
   }
 
   componentDidMount() {
     axios.get(`${BASE_URL}`).then(response => {
       this.setState({ table: response.data || [] });
     });
+  }
+
+  handleReport(number){
+    console.log(number)
+    this.form.number = number
   }
 
   handleEmailChange(event) {
@@ -75,30 +82,36 @@ export default class Public extends Component {
     this.setState({ form: { ...form, message: event.target.value } });
   }
 
-  handleReportSubmit(id) {
+  handleReportSubmit(event) {
     let form = this.state.form;
-    if (form.gender != "" && form.name != "") {
+    if (
+      form.email != "" &&
+      form.message != "" &&
+      form.emailError == "" &&
+      form.messageError == "" &&
+      form.number
+    ) {
       axios
-        .post(`${BASE_URL}`, {
+        .post(`${BASE_URL}/email`, {
           ...form,
-          number: this.state.share.number
+          number: form.number
         })
         .then(function(response) {});
       this.setState({
-        share: { share: false, number: null },
         form: {
-          name: "",
-          nameError: "",
-          gender: "",
-          genderError: ""
+          message: "",
+          messageError: "",
+          email: "",
+          emailError: "",
+          number: ""
         }
       });
     } else {
-      if (form.gender == "") {
-        form = { ...form, genderError: "Please Select Gender" };
+      if (form.email == "") {
+        form = { ...form, emailError: "Email is mandatory" };
       }
-      if (form.name == "") {
-        form = { ...form, nameError: "Please entred valid name number" };
+      if (form.message == "") {
+        form = { ...form, messageError: "Message is mandatory" };
       }
       alert("Plese enter mandatory fields.");
       this.setState({ form: { ...form } });
@@ -171,6 +184,7 @@ export default class Public extends Component {
   }
 
   render() {
+    let form = this.state.form;
     let tabel = this.state.table.map((val, i) => (
       <div className="m-1" key={val._id}>
         <div className="container d-flex justify-content-center position-sticky">
@@ -205,6 +219,7 @@ export default class Public extends Component {
                       data-toggle="modal"
                       data-target="#reportModel"
                       data-whatever={val.number}
+                      onClick={()=> this.handleReport(val.number)}
                       href="#"
                     >
                       Report
@@ -370,16 +385,31 @@ export default class Public extends Component {
                 >
                   Close
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-toggle="modal"
-                  href="#ignismyModal"
-                  data-dismiss="modal"
-                  onClick={this.handleReportSubmit}
-                >
-                  Send message
-                </button>
+                <div>
+                  {form.email != "" &&
+                  form.message != "" &&
+                  form.emailError == "" &&
+                  form.messageError == "" ? (
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                      href="#ignismyModal"
+                      data-dismiss="modal"
+                      onClick={this.handleReportSubmit}
+                    >
+                      Send message
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onClick={this.handleReportSubmit}
+                    >
+                      Send message
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
