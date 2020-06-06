@@ -44,12 +44,15 @@ export default class Finder extends Component {
   }
 
   handleChange(event) {
+    let loadData = find("numbers");
     if (isNaN(event.target.value)) {
       this.setState({ errorMsg: "Please entred valid number" });
     } else {
       this.setState({ errorMsg: "" });
     }
-    let filteredNum = this.state.allNums.filter(val=> val.includes(event.target.value))
+    let filteredNum = loadData.filter(val =>
+      val.includes(event.target.value)
+    );
     this.setState({ number: event.target.value, allNums: filteredNum });
   }
 
@@ -80,7 +83,8 @@ export default class Finder extends Component {
   }
 
   handleReset(event) {
-    this.setState({ number: "", errorMsg: "" });
+    let loadData = find("numbers");
+    this.setState({ number: "", errorMsg: "", allNums: loadData});
     event.preventDefault();
   }
 
