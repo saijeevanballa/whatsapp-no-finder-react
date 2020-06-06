@@ -49,11 +49,13 @@ export default class Finder extends Component {
     } else {
       this.setState({ errorMsg: "" });
     }
-    this.setState({ number: event.target.value });
+    let filteredNum = this.state.allNums.filter(val=> val.includes(event.target.value))
+    this.setState({ number: event.target.value, allNums: filteredNum });
   }
 
   handleUpdateAndStore() {
-    this.state.allNums.push(this.state.number);
+    let loadData = find("numbers");
+    loadData.push(this.state.number);
     this.setState({ allNums: this.state.allNums });
     create("numbers", this.state.allNums);
   }
@@ -64,8 +66,9 @@ export default class Finder extends Component {
     } else if (this.state.number.length != 10) {
       alert("Entred phone number must be 10 digits " + this.state.number);
     } else {
+      let loadData = find("numbers");
       alert("Entred Number: " + this.state.number);
-      if (!this.state.allNums.includes(this.state.number)) {
+      if (!loadData.includes(this.state.number)) {
         this.handleUpdateAndStore();
       }
       window.open(
