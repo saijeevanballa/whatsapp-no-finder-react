@@ -106,7 +106,12 @@ export default class Finder extends Component {
 
   handleFormSubmit() {
     let form = this.state.form;
-    if (form.gender != "" && form.name != "" && form.genderError == "" && form.nameError == "") {
+    if (
+      form.gender != "" &&
+      form.name != "" &&
+      form.genderError == "" &&
+      form.nameError == ""
+    ) {
       axios
         .post(`${BASE_URL}`, {
           ...form,
@@ -169,6 +174,8 @@ export default class Finder extends Component {
                     className="form-control text-center"
                     type="text"
                     name="Tel"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     value={this.state.number}
                     onChange={this.handleChange}
                   />
@@ -229,7 +236,7 @@ export default class Finder extends Component {
                 <br />
                 <div className="form-group">
                   <label className="bmd-label-floating">Gender</label>
-                  <select 
+                  <select
                     className="form-control"
                     value={this.state.form.gender}
                     onChange={this.handleFormGenderChange}

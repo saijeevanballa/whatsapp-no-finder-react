@@ -21,7 +21,6 @@ class App extends Component {
       <div>
         <Navbar />
         <Finder />
-        <Footer/>
       </div>
     );
   }
