@@ -49,6 +49,8 @@ export default class Finder extends Component {
     let loadData = find("numbers");
     if (isNaN(event.target.value)) {
       this.setState({ errorMsg: "Please entred valid number" });
+    }else if(event.target.value.length != 10){
+      this.setState({ errorMsg: "Entred phone number must be 10 digits" });
     } else {
       this.setState({ errorMsg: "" });
     }
@@ -192,13 +194,19 @@ export default class Finder extends Component {
 
                 <br />
                 <div className="d-flexnjustify-content-center">
-                  <button
+                  { this.state.number && this.state.allNums.includes(this.state.number)?  <button
                     type="button"
                     className="btn btn-outline-primary btn-raised btn-block"
                     onClick={this.handleSubmit}
+                    disabled
                   >
                     submit
-                  </button>
+                  </button>:<button
+                    type="button"
+                    className="btn btn-outline-primary btn-raised btn-block"
+                    onClick={this.handleSubmit}                  >
+                    submit
+                  </button>}
                   <button
                     type="button"
                     className="btn btn-outline-primary btn-raised btn-block"
