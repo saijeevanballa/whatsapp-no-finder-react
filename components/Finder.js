@@ -34,6 +34,8 @@ export default class Finder extends Component {
     this.handleFormNameChange = this.handleFormNameChange.bind(this);
   }
 
+
+
   componentDidMount() {
     let loadData = find("numbers");
     if (loadData) {

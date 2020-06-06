@@ -31,7 +31,7 @@ export default class Table extends Component {
   }
 
   render() {
-    let tabel = this.props.table.map((val, i) => (
+    let tabel = this.props.table.reverse().map((val, i) => (
       <tr key={i}>
         <th scope="row">{i + 1}</th>
         <td>{val}</td>
