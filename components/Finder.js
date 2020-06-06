@@ -50,15 +50,14 @@ export default class Finder extends Component {
     } else {
       this.setState({ errorMsg: "" });
     }
-    let filteredNum = loadData.filter(val =>
-      val.includes(event.target.value)
-    );
+    let filteredNum = loadData.filter(val => val.includes(event.target.value));
     this.setState({ number: event.target.value, allNums: filteredNum });
   }
 
   handleUpdateAndStore() {
     let loadData = find("numbers");
-    loadData.push(this.state.number);
+    console.log(loadData, [this.state.number]);
+    this.state.allNums = loadData.concat([this.state.number]);
     this.setState({ allNums: this.state.allNums });
     create("numbers", this.state.allNums);
   }
@@ -84,7 +83,7 @@ export default class Finder extends Component {
 
   handleReset(event) {
     let loadData = find("numbers");
-    this.setState({ number: "", errorMsg: "", allNums: loadData});
+    this.setState({ number: "", errorMsg: "", allNums: loadData });
     event.preventDefault();
   }
 
