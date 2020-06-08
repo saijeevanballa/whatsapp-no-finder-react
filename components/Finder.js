@@ -182,6 +182,7 @@ export default class Finder extends Component {
                   <label className="bmd-label-floating">Number</label>
                   <input
                     ref={this.inputRef}
+                    autoFocus = {true}
                     className="form-control text-center"
                     type="text"
                     name="Tel"
