@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 const axios = require("axios");
 import { find, create } from "../store/store";
 import Table from "./Table";
@@ -25,6 +25,7 @@ export default class Finder extends Component {
         genderError: ""
       }
     };
+    this.inputRef = createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -41,6 +42,7 @@ export default class Finder extends Component {
     } else {
       create("numbers", this.state.allNums);
     }
+    this.inputRef.current.focus();
   }
 
   handleChange(event) {
@@ -179,6 +181,7 @@ export default class Finder extends Component {
                 <div className="form-group">
                   <label className="bmd-label-floating">Number</label>
                   <input
+                    ref={this.inputRef}
                     className="form-control text-center"
                     type="text"
                     name="Tel"
@@ -200,7 +203,7 @@ export default class Finder extends Component {
                       onClick={this.handleSubmit}
                       disabled
                     >
-                      submit
+                      Open Whatsapp
                     </button>
                   ) : (
                     <button
@@ -208,7 +211,7 @@ export default class Finder extends Component {
                       className="btn btn-outline-primary btn-raised btn-block"
                       onClick={this.handleSubmit}
                     >
-                      submit
+                      Open Whatsapp
                     </button>
                   )}
                   <button
