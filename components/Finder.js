@@ -42,7 +42,6 @@ export default class Finder extends Component {
     } else {
       create("numbers", this.state.allNums);
     }
-    this.inputRef.current.focus();
   }
 
   handleChange(event) {
@@ -68,6 +67,7 @@ export default class Finder extends Component {
 
   handleSubmit(event) {
     if (isNaN(this.state.number) || this.state.number == "") {
+      this.inputRef.current.focus();
       alert("Please entred valid number " + this.state.number);
     } else if (this.state.number.length != 10) {
       alert("Entred phone number must be 10 digits " + this.state.number);
@@ -182,7 +182,6 @@ export default class Finder extends Component {
                   <label className="bmd-label-floating">Number</label>
                   <input
                     ref={this.inputRef}
-                    autoFocus = {true}
                     className="form-control text-center"
                     type="text"
                     name="Tel"
